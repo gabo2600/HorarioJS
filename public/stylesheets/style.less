@@ -1,0 +1,123 @@
+:root{
+  --back: rgb(39, 39, 39);
+  --backS: rgb(78, 78, 78);
+  --col:rgb(255, 255, 255);
+  --spc: rgb(255,221,0);
+  --blu: rgb(0, 225, 255);
+  --red: rgb(255, 0, 85);
+}
+
+*{  
+  padding:10px;
+  margin:0px;
+  color: var(--col);
+  background: var(--back);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;    
+}
+h2,h1,h3,h4,h5{
+color:var(--spc);
+}
+
+h1{
+  text-align: center;
+  }
+  
+body{
+  padding: 20px;
+}
+
+
+
+a,button{
+  text-decoration: none;
+  background: var(--back);
+  border-style: solid;
+  border-color: var(--spc);
+  color: var(--spc);
+  border-width: 1px;
+  border-radius: 20px;
+  
+  margin: 4px;
+  margin-bottom: 10px ;
+}
+
+a:hover,button:hover{
+  animation-name: ba;
+  animation-duration: 200ms;
+  background: var(--spc);
+  color: var(--back);
+
+  padding-left:15px;
+  padding-right:15px;
+}
+
+input{
+  border-style: solid;
+  display: block;
+  margin:25px;
+  border-width: 1px;
+  border-color: var(--col);
+  color: var(--col);
+  border-width: 1px;
+  border-radius: 20px;
+
+}
+
+input:focus,input:hover{
+  animation-name: ia;
+  animation-duration: 200ms;
+  background-color: var(--backS);
+  padding: 17px;
+}
+
+.red{
+  background-color: var(--back);
+  border-color: var(--red);
+  color:var(--red);  
+}
+
+.red:hover{
+    background-color: var(--red);
+    color:var(--back);
+}
+
+.blue{
+  background-color: var(--back);
+  border-color: var(--blu);
+  color:var(--blu);
+}
+.blue:hover{
+  background-color: var(--blu);
+  color:var(--back);
+}
+
+
+@keyframes ba {
+  from {
+    background: var(--back);
+    
+
+    padding-left:10px;
+    padding-right:10px;
+  }
+  to {
+    
+
+    padding-left:15px;
+    padding-right:15px;
+  }
+}
+
+@keyframes ia {
+  from {
+    padding:10px;
+    background-color: var(--back);
+  }
+  to {
+    background-color: var(--backS);
+    padding: 17px;
+  }
+}
+
+
