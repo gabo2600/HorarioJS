@@ -13,6 +13,7 @@ router.get('/', function(req, res) {
 
   let d = new Date,arD = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"],dia;
   d = d.getDay();
+  d = d-1;
   if (x!=undefined)
   {
     if (x>6)
@@ -28,7 +29,8 @@ router.get('/', function(req, res) {
 
   for(let i = 0 ;i< h[d].length ; i++)
   {
-    html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles de la clase</a><td> <td>"+cl[h[d][i].id].clase+"</td> <td>"+cl[h[d][i].id].prof+" "+cl[h[d][i].id].mat+" "+cl[h[d][i].id].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+h[d][i].hf+":00</td> <td><a href='"+cl[h[d][i].id].url+"'>Enlace</a></td>  </tr>";
+    html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles de la clase</a><td> <td>"+cl[h[d][i].id].clase+"</td> <td>"+cl[h[d][i].id].prof+" "+cl[h[d][i].id].mat+" "+cl[h[d][i].id].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+
+    h[d][i].hf+":00</td> <td><a target='blank' class='green' href='"+cl[h[d][i].id].url+"'>Enlace</a></td>  </tr>";
   }
 
   html+= "</table>"

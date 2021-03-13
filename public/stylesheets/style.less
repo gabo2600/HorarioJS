@@ -5,6 +5,7 @@
   --spc: rgb(255,221,0);
   --blu: rgb(0, 225, 255);
   --red: rgb(255, 0, 85);
+  --gre: rgb(179, 255, 0);
 }
 
 *{  
@@ -27,7 +28,9 @@ body{
   padding: 20px;
 }
 
-
+td{
+  margin-top: 20px;
+}
 
 a,button{
   text-decoration: none;
@@ -90,6 +93,17 @@ input:focus,input:hover{
 .blue:hover{
   background-color: var(--blu);
   color:var(--back);
+}
+
+.green{
+  background-color: var(--back);
+  border-color: var(--gre);
+  color:var(--gre);  
+}
+
+.green:hover{
+    background-color: var(--gre);
+    color:var(--back);
 }
 
 

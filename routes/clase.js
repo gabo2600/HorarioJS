@@ -4,6 +4,20 @@ var router = express.Router();
 var model = require("../Model/Clase");
 
 /* GET users listing. */
+
+router.get("/", (req,res)=>{
+  var data = require("../DB/clases.json");
+  let html="<table> ";
+
+  for(let i = 0 ;i<data.length ; i++)
+  {
+    html+= "<tr> <td><a href='/C/R?id="+data[i].id+"'>detalles de la clase</a><td> <td>"+data[i].clase+"</td> <td>"+data[i].prof+" "+data[i].mat+" "+data[i].pat+"</td> <td><a target='blank' class='green' href='"+data[i].url+"'>Enlace</a></td>  </tr>";
+  }
+  html+="</table>";
+  res.render("clases/index",{html:html});
+});
+
+
 router.get('/R', function(req, res, next) {
   let id = req.query.id;
   if (id!=undefined)
