@@ -1,0 +1,17 @@
+<h1>Editar entrada {{entrada}} del dia {{diaS}}</h1>
+
+<form action="/H/U" method="POST">
+    <input type="hidden" value={{dia}} name="dia">
+    <input type="hidden" value={{entrada}} name="entrada">
+    <label>Clase</label><br>
+    <select name="clase" required>
+        {{{opc}}}
+    </select><br><br>
+    <label>Hora de inicio</label>
+    <input name="hi" value={{hi}} min='1' max='12' type="number" required>
+    <label>Hora de termino</label>
+    <input name="hf" value={{hf}} min='1' max='12' type="number" required>
+    <button class="blue" type="submit" >Guardar cambios</button>
+    <a href="/">volver</a>
+</form>
+

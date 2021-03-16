@@ -1,11 +1,12 @@
 <h1>Editar clase</h1>
 
 <form method="POST" action="/C/U">
-    <input type="text" placeholder="Nombre de la clase" name="nomC" value="{{nomC}}">
+    <input type="hidden" required name="id" value="{{id}}">
+    <input type="text" required placeholder="Nombre de la clase" name="nomC" value="{{nomC}}">
     <input type="text" placeholder="Nombre del profesor" name="nom" value="{{nom}}">
     <input type="text" placeholder="Apellido paterno del profesor" name="pat" value="{{pat}}">
     <input type="text" placeholder="Apellido materno del profesor" name="mat" value="{{mat}}">
     <input type="url" placeholder="Link de la clase" name="url" value="{{url}}">
-    <button type="submit">Guardar</button>
+    <button type="submit" class="blue">Guardar</button>
     <a href="/">Volver</a>
 </form>

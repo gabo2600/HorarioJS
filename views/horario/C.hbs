@@ -1,0 +1,15 @@
+<h1>Nueva entrada dia {{diaS}}</h1>
+
+<form action="/H/C" method="POST">
+    <input type="hidden" value={{dia}} name="dia">
+    <label>Clase</label><br>
+    <select name="clase" required>
+        {{{opc}}}
+    </select><br><br>
+    <label>Hora de inicio</label>
+    <input name="hi" min='1' max='12' type="number" required>
+    <label>Hora de termino</label>
+    <input name="hf" min='1' max='12' type="number" required>
+    <button class="blue" type="submit" >Agregar</button>
+    <a href="/">volver</a>
+</form>

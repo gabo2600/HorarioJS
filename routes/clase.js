@@ -6,7 +6,7 @@ var model = require("../Model/Clase");
 /* GET users listing. */
 
 router.get("/", (req,res)=>{
-  var data = require("../DB/clases.json");
+  var data = model.R();
   let html="<table> ";
 
   for(let i = 0 ;i<data.length ; i++)
@@ -17,25 +17,19 @@ router.get("/", (req,res)=>{
   res.render("clases/index",{html:html});
 });
 
-
 router.get('/R', function(req, res, next) {
   let id = req.query.id;
-  if (id!=undefined)
-  {
-    var data = require("../DB/clases.json");
-    //data = JSON.parse(data);
-    console.log(data);
-    if (data.length>=id)
-      res.render("clases/R",{clase:data[id].clase,prof:data[id].prof,mat:data[id].mat,pat:data[id].pat,url:data[id].url,id:id});
-    else
-    res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
+  let encontrada=false;
+  var data = model.R();
+  for(let i = 0 ;i<data.length ; i++){
+      if (data[i].id == id){
+        res.render("clases/R",{clase:data[id].clase,prof:data[id].prof,mat:data[id].mat,pat:data[id].pat,url:data[id].url,id:id});
+        encontrada=true;
+      }
   }
-  else
-  {
+  if (!encontrada)
     res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
-  }
 });
-
 
 router.get('/C', function(req, res, next) {
   res.render("clases/C");
@@ -43,29 +37,45 @@ router.get('/C', function(req, res, next) {
 
 router.get('/U', function(req, res, next) {
   let id = req.query.id;
-  if (id!=undefined)
-  {
-    var data = require("../DB/clases.json");
-    //data = JSON.parse(data);
-    console.log(data);
-    if (data.length>=id)
-      res.render("clases/R",{clase:data[id].clase,prof:data[id].prof,mat:data[id].mat,pat:data[id].pat,url:data[id].url,id:id});
-    else
-    res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
+  let encontrada=false;
+  var data = model.R();
+  for(let i = 0 ;i<data.length ; i++){
+      if (data[i].id == id){
+        res.render("clases/U",{
+          nomC:data[id].clase,
+          nom:data[id].prof, 
+          mat:data[id].mat, 
+          pat:data[id].pat,
+          url:data[id].url,
+          id:id
+        });
+        encontrada=true;
+      }
   }
-  else
-  {
+  if (!encontrada)
     res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
-  }
-  res.render("clases/U");
 });
+
 
 router.get('/D', function(req, res, next) {
-  res.render("msg",{msg:"Exito",des:"clase eliminada exitosamente",lnk:"/",lnkD:"Volver"})
+  let id = req.query.id;
+  let encontrada=false;
+  var data = model.R();
+  for(let i = 0 ;i<data.length ; i++){
+      if (data[i].id == id){
+        res.render("clases/D",{clase:data[id].clase,id:id});
+        encontrada=true;
+      }
+  }
+  if (!encontrada)
+    res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
 
 });
 
+
+
 //post
+
 
 router.post('/C', function(req, res, next) {
   const prof = req.body.nom;
@@ -75,16 +85,26 @@ router.post('/C', function(req, res, next) {
   const url = req.body.url;
   
   model.C(clase,prof,pat,mat,url);
-  res.render("msg",{msg:"Exito",des:"clase guardada exitosamente",lnk:"/C/R",lnkD:"Volver"})
+  res.render("msg",{msg:"Exito",des:"clase guardada exitosamente",lnk:"/C/C",lnkD:"Volver"})
 });
+
 
 router.post('/U', function(req, res, next) {
-  res.send('respond with a resource');
+  let nomC = req.body.nomC; 
+  let nom = req.body.nom;
+  let pat = req.body.mat;
+  let mat = req.body.pat;
+  let url = req.body.url;
+  let id= req.body.id;
+  model.U(nomC,nom,pat,mat,url,id);
+  res.render("msg",{msg:"Exito",des:"clase guardada exitosamente",lnk:"/C/R?id="+id,lnkD:"Volver"})
 });
+
 
 router.post('/D', function(req, res, next) {
-  res.send('respond with a resource');
+  id = req.body.id;
+  model.D(id);
+  res.render("msg",{msg:"Exito",des:"Clase eliminada exitosamente",lnk:"/",lnkD:"Volver"})
 });
-
 
 module.exports = router;
