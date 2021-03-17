@@ -1,4 +1,5 @@
 const fs = require("fs");
+const modelH = require("./horario");
 /*
 {
     clase: "",
@@ -8,7 +9,8 @@ const fs = require("fs");
     url: ""
 }
 */
-const Path = "./DB/clases.json";
+const Path = "./DB/clases.jsonn";
+const Path2 = "./DB/horario.json"
 
 let clase = {
     C:           //Crear clase
@@ -73,15 +75,32 @@ let clase = {
             try{
                 data = await fs.readFileSync(Path);
                 data = JSON.parse(data);
-                for(let i = 0 ;  i<data.lenght ; i++)
+                for(let i = 0 ;  i<data.length ; i++)
                     if (data[i].id==id)
-                        data.splice(id,1);
-                console.log(data);
+                        data.splice(i,1);
+
                 data = JSON.stringify(data); 
                 fs.writeFileSync(Path,data);
+
+                try{
+                    data = fs.readFileSync(Path2);
+                    data = JSON.parse(data);
+                    for(let i = 0 ; i< data.length ; i++)
+                    {
+                        for(let j = 0 ; j<data[i].length ; j++)
+                            if (data[i][j].id == id)
+                                data[i].splice(j,1);
+                    }
+                    data = JSON.stringify(data);
+                    fs.writeFileSync(Path2,data);
+                }
+                catch(er){
+    
+                    console.log(" e1: "+er);
+                }
             }
             catch(er){
-                console.log(" e1: "+er);
+                console.log(" e2: "+er);
             }
         },
     R:

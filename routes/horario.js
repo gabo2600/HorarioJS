@@ -35,10 +35,10 @@ router.get('/', function(req, res) {
         if (cl[j].id == h[d][i].id)
         {
           if ((x==undefined || x==d2) && ho>=h[d][i].hi && ho<h[d][i].hf)  
-            html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles de la clase</a><td><td>"+cl[j].clase+"</td> <td>"+cl[j].prof+" "+cl[j].mat+" "+cl[j].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+
+            html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles</a><td><td>"+cl[j].clase+"</td> <td>"+cl[j].prof+" "+cl[j].mat+" "+cl[j].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+
             h[d][i].hf+":00</td> <td><a target='blank' class='red' href='"+cl[j].url+"'>Enlace</a></td>  </tr>";
           else
-            html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles de la clase</a><td> <td>"+cl[j].clase+"</td> <td>"+cl[j].prof+" "+cl[j].mat+" "+cl[j].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+
+            html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles</a><td> <td>"+cl[j].clase+"</td> <td>"+cl[j].prof+" "+cl[j].mat+" "+cl[j].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+
             h[d][i].hf+":00</td> <td><a target='blank' class='green' href='"+cl[j].url+"'>Enlace</a></td>  </tr>";
         }
 
@@ -104,7 +104,7 @@ router.get('/H/U', function(req, res) {
   var h = modelH.R();
   var cl = modelC.R();
 
-  if (d!=undefined || e != undefined){
+  if (d!=undefined && e != undefined){
     for(let i = 0 ;i<cl.length ; i++)
     {
       if (h[d][e].id == cl[i].id)
@@ -136,6 +136,17 @@ router.get('/H/C', function(req, res) {
   
 });
 
+router.get('/H/D', function(req, res) {
+  let {d,e} = req.query;
+
+  if (e!=undefined && d!=undefined)
+  {
+    res.render("horario/D",{d:d,e:e});
+  }
+  else
+    res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
+});
+
 /// POST
 
 router.post('/H/C',(req,res)=>{
@@ -150,6 +161,13 @@ router.post('/H/U',(req,res)=>{
   entrada-=1;
   modelH.U(dia,entrada,clase,hi,hf);
   res.render("msg",{msg:"Exito",des:"entrada añadida exitosamente",lnk:"/",lnkD:"Volver"})
+
+});
+
+router.post('/H/D',(req,res)=>{
+  let {d,e} = req.body;
+  modelH.D(d,e);
+  res.render("msg",{msg:"Exito",des:"entrada eliminada exitosamente",lnk:"/",lnkD:"Volver"})
 
 });
 

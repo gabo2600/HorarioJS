@@ -47,8 +47,18 @@ let horario = {
             }
         },
     D: 
-        ()=>{
+        (d,e)=>{
+            try{
+                data = fs.readFileSync(Path);
+                data = JSON.parse(data);
+                data[d].splice(e,1);
+                data = JSON.stringify(data);
+                fs.writeFileSync(Path,data);
+            }
+            catch(er){
 
+                console.log(" e1: "+er);
+            }
         },
 };
 
