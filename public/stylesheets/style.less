@@ -17,12 +17,14 @@
   font-size: 20px;    
 }
 h2,h1,h3,h4,h5{
+  font-size: 25px;
 color:var(--spc);
 }
 
 h1{
   text-align: center;
-  }
+  font-size: 30px;
+}
   
 body{
   padding: 20px;
@@ -108,14 +110,19 @@ input:focus,select:hover,select:focus,input:hover{
 
 
 @keyframes ba {
-  from {
+  0% {
     background: var(--back);
-    
-
     padding-left:10px;
     padding-right:10px;
   }
-  to {
+
+  50% {
+    background: var(white);
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  100% {
     
 
     padding-left:15px;
@@ -124,11 +131,15 @@ input:focus,select:hover,select:focus,input:hover{
 }
 
 @keyframes ia {
-  from {
+  0% {
     padding:10px;
     background-color: var(--back);
   }
-  to {
+  50%{
+    background-color: var(white);
+    padding: 20px;
+  }
+  100% {
     background-color: var(--backS);
     padding: 17px;
   }
