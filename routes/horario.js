@@ -41,7 +41,6 @@ router.get('/', function(req, res) {
             html+= "<tr> <td><a href='/C/R?id="+h[d][i].id+"'>detalles</a><td> <td>"+cl[j].clase+"</td> <td>"+cl[j].prof+" "+cl[j].mat+" "+cl[j].pat+"</td> <td>"+h[d][i].hi+":00</td> <td>"+
             h[d][i].hf+":00</td> <td><a target='blank' class='green' href='"+cl[j].url+"'>Enlace</a></td>  </tr>";
         }
-
       }
     }
 

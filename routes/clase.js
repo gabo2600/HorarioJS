@@ -7,11 +7,11 @@ var model = require("../Model/Clase");
 
 router.get("/", (req,res)=>{
   var data = model.R();
-  let html="<table> ";
+  let html="<table class='table'> <tr> <th>Accion</th> <th>Clase</th> <th>Profesor</th> <th>Enlace</th> </tr> ";
 
   for(let i = 0 ;i<data.length ; i++)
   {
-    html+= "<tr> <td><a href='/C/R?id="+data[i].id+"'>detalles de la clase</a><td> <td>"+data[i].clase+"</td> <td>"+data[i].prof+" "+data[i].mat+" "+data[i].pat+"</td> <td><a target='blank' class='green' href='"+data[i].url+"'>Enlace</a></td>  </tr>";
+    html+= "<tr> <td><a href='/C/R?id="+data[i].id+"'>detalles</a><td> <td>"+data[i].clase+"</td> <td>"+data[i].prof+" "+data[i].mat+" "+data[i].pat+"</td> <td><a target='blank' class='green' href='"+data[i].url+"'>Enlace</a></td>  </tr>";
   }
   html+="</table>";
   res.render("clases/index",{html:html});
