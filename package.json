@@ -1,18 +1,57 @@
 {
-  "name": "horariojs",
-  "version": "0.0.0",
-  "private": true,
+  "name": "horario",
+  "version": "1.0.1",
+  "description": "Aplicación para el manejo de horarios",
+  "main": "main.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "keywords": [],
+  "author": "gbo",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^12.0.1"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "electron": "^12.0.1",
-    "express": "~4.16.1",
+    "cookie-parser": "^1.4.5",
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.17.1",
     "hbs": "^4.1.1",
-    "http-errors": "~1.6.3",
-    "less-middleware": "~2.2.1",
-    "morgan": "~1.9.1"
+    "less-middleware": "^3.1.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "horariodesktop"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
