@@ -9,7 +9,7 @@ const modelH = require("./horario");
     url: ""
 }
 */
-const Path = "./DB/clases.jsonn";
+const Path = "./DB/clases.json";
 const Path2 = "./DB/horario.json"
 
 let clase = {

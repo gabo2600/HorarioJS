@@ -19,15 +19,18 @@ router.get("/", (req,res)=>{
 
 router.get('/R', function(req, res, next) {
   let id = req.query.id;
-  let encontrada=false;
   var data = model.R();
   for(let i = 0 ;i<data.length ; i++){
-      if (data[i].id == id){
-        res.render("clases/R",{clase:data[id].clase,prof:data[id].prof,mat:data[id].mat,pat:data[id].pat,url:data[id].url,id:id});
-        encontrada=true;
-      }
+      if (data[i].id == id)
+        res.render("clases/R",{
+          clase:data[i].clase,
+          prof:data[i].prof,
+          mat:data[i].mat,
+          pat:data[i].pat,
+          url:data[i].url,
+          id:id
+        });
   }
-  if (!encontrada)
     res.render("msg",{msg:"Error 404",des:"pagina no encontrada",lnk:"/",lnkD:"Volver"})
 });
 
@@ -42,11 +45,11 @@ router.get('/U', function(req, res, next) {
   for(let i = 0 ;i<data.length ; i++){
       if (data[i].id == id){
         res.render("clases/U",{
-          nomC:data[id].clase,
-          nom:data[id].prof, 
-          mat:data[id].mat, 
-          pat:data[id].pat,
-          url:data[id].url,
+          nomC:data[i].clase,
+          nom:data[i].prof, 
+          mat:data[i].mat, 
+          pat:data[i].pat,
+          url:data[i].url,
           id:id
         });
         encontrada=true;
@@ -63,7 +66,7 @@ router.get('/D', function(req, res, next) {
   var data = model.R();
   for(let i = 0 ;i<data.length ; i++){
       if (data[i].id == id){
-        res.render("clases/D",{clase:data[id].clase,id:id});
+        res.render("clases/D",{clase:data[i].clase,id:id});
         encontrada=true;
       }
   }
