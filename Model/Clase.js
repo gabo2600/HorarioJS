@@ -1,4 +1,4 @@
-const fs = require("fs");
+const mysql = require("mysql2/promise");
 const modelH = require("./horario");
 /*
 {
@@ -12,110 +12,68 @@ const modelH = require("./horario");
 const Path = "./DB/clases.json";
 const Path2 = "./DB/horario.json"
 
-let clase = {
-    C:           //Crear clase
-        async (cl,pr,pat,mat,url)=>{
-            let data,id=0;
+class clase{
+    tabN = "clase";
+    tabPk = "idClase";
+
+    pool = mysql.createPool({
+        host: "localhost",
+        user: "gbo",
+        database: "horario",
+        password: "Gvb1312123",
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0,
+    });
+
+    C=(cl,pr,pat,mat,url)=>{  //Crear clase
+            let sql = "INSERT INTO "+this.tabN+"(idClase,clase,prof,pat,mat,url) VALUES(NULL,?,?,?,?,?)";
             try{                                                                    
-                data = await fs.readFileSync(Path);
-                data = JSON.parse(data);
-
-                if (data.length>0){
-                    id = data[data.length-1].id;
-                    id++;
-                }
-                data.push({id:id,clase:cl , prof:pr , mat:mat , pat:pat , url:url});
+                this.pool.query(sql,[cl,pr,pat,mat,url]);
+                return true;
             }
             catch(er){
-                data = [];
-                data.push({id:0,clase:cl, prof:pr, mat:mat, pat:pat , url:url});
-                console.log(" e1: "+er);
+                console.log(sql+" | CC: "+er);
+                return false;
             }
-
-            try{ 
-                
-                data = JSON.stringify(data); 
-                console.log(data);
-                fs.writeFileSync(Path,data);
-            }
-            catch(er){
-                console.log(" e2: "+er);
-            }
-            
-        },
-    U: 
-        async (cl,pr,pat,mat,url,id)=>{
-            let data;
-            
-
-            try{
-                
-                data = await fs.readFileSync(Path);
-                data = await JSON.parse(data);
-                for(let i = 0 ;  i<data.length ; i++){
-                    if (data[i].id==id){
-                        data[i].clase=cl;
-                        data[i].prof=pr;
-                        data[i].mat=mat;
-                        data[i].pat=pat;
-                        data[i].url=url;
-                    }
-                }
-                data = JSON.stringify(data); 
-                fs.writeFileSync(Path,data);
-            }
-            catch(er){
-                console.log(" e1: "+er);
-            }
-        },
+    }
     
-    D: 
-        async (id)=>{
-            let data;
-            try{
-                data = await fs.readFileSync(Path);
-                data = JSON.parse(data);
-                for(let i = 0 ;  i<data.length ; i++)
-                    if (data[i].id==id)
-                        data.splice(i,1);
-
-                data = JSON.stringify(data); 
-                fs.writeFileSync(Path,data);
-
-                try{
-                    data = fs.readFileSync(Path2);
-                    data = JSON.parse(data);
-                    for(let i = 0 ; i< data.length ; i++)
-                    {
-                        for(let j = 0 ; j<data[i].length ; j++)
-                            if (data[i][j].id == id)
-                                data[i].splice(j,1);
-                    }
-                    data = JSON.stringify(data);
-                    fs.writeFileSync(Path2,data);
-                }
-                catch(er){
-    
-                    console.log(" e1: "+er);
-                }
-            }
-            catch(er){
-                console.log(" e2: "+er);
-            }
-        },
-    R:
-        ()=>{
-            let data
-            try{
-                data = fs.readFileSync(Path);
-                data = JSON.parse(data);
-            }
-            catch(er){
-                data = [];
-                console.log(" e1: "+er);
-            }
-            return data;
+    R = async (id="undefined")=>{
+        let data;
+        let sql = "SELECT * FROM "+this.tabN;
+        if (id!=undefined)
+            sql+= " WHERE "+this.tabPk+" = "+id; 
+        try{
+            data = await this.pool.query(sql);
+            data = data[0];
         }
-};
+        catch(er){
+            console.log(sql+" | CR: "+er);
+        }
+        return data;
+    }
+
+    U=(cl,pr,pat,mat,url,id)=>{
+            let sql="UPDATE "+this.tabN+" SET clase=?,prof=?,pat=?,mat=?,url=? WHERE "+this.tabPk+" = ?";
+            try{
+                this.pool.query(sql,[cl,pr,pat,mat,url,id]);
+                return true;
+            }
+            catch(er){
+                console.log(sql+" | CU: "+er);
+                return false;
+            }
+    }
+
+    D=(id)=>{
+        let sql = "DELETE * FROM "+this.tabN+" WHERE "+this.tabPk+" = ?";
+        try {
+            this.pool.query(sql,[id]);
+        } catch (er) {
+            console.log(sql+" | CD: "+er);
+            return false;
+        }
+    }
+}
 
 module.exports = clase;
